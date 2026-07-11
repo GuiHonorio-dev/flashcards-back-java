@@ -1,0 +1,1 @@
+ALTER TABLE decks ADD COLUMN reviewed_at TIMESTAMP;

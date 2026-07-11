@@ -1,0 +1,1 @@
+ALTER TABLE card_reviews ALTER COLUMN difficulty TYPE INTEGER;

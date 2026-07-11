@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: flashcards
+  datasource:
+    url: jdbc:postgresql://localhost:5432/flashcards_db
+    username: ${DATABASE_USERNAME:root}
+    password: ${DATABASE_PASSWORD:root}
+
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 1
+jwt:
+  expiration: 900000
+  key: hkkRVIHw9uoFdpZZo128RNX6surALzZpytWPFg0e6E1ivqCOBHY8h3FsW3bEChMF7BVA8WY81XDIfFw0cgt7lK
+  cookie-name: session
+  cookie-secure: false
+  refresh-expiration: 1209600000
+  refresh-cookie-name: refresh_session
