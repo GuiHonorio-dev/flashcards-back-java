@@ -53,7 +53,9 @@ public class CardReviewService {
     cardProgressRepository.save(progress);
   }
 
-  private void applySm2(CardProgress progress, int quality) {
+  private void applySm2(CardProgress progress, int difficulty) {
+    int quality = 6 - difficulty;
+    
     if (quality < 3) {
       progress.setRepetitions(0);
       progress.setInterval_days(1);
