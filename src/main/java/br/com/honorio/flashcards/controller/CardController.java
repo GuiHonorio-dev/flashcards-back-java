@@ -41,6 +41,11 @@ public class CardController {
     return cardService.getAllByDeckIdAndStudentId(deckId, student.getId());
   }
 
+  @GetMapping("/due/all")
+  public List<GetCardResponseDto> findDueCards(@AuthenticationPrincipal Student student) {
+    return cardService.getDueCards(student.getId());
+  }
+
   @DeleteMapping("/{cardId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteCard(@AuthenticationPrincipal Student student, @PathVariable String cardId) {

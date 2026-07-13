@@ -1,0 +1,1 @@
+ALTER TABLE card_progress ALTER COLUMN ease_factor TYPE DOUBLE PRECISION;

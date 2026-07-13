@@ -1,5 +1,6 @@
 package br.com.honorio.flashcards.service;
 
+import java.time.Instant;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -51,6 +52,13 @@ public class CardService {
 
     return cards;
 
+  }
+
+  public List<GetCardResponseDto> getDueCards(String studentId) {
+    return cardRepository.findDueCards(studentId, Instant.now())
+    .stream()
+    .map(card -> new GetCardResponseDto(card.getId(), card.getQuestion(), card.getAnswer(), card.getCreatedAt()))
+    .toList();
   }
 
   public void deleteCard(String cardId, String studentID) {
