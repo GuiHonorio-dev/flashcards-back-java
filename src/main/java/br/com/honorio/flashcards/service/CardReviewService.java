@@ -33,6 +33,7 @@ public class CardReviewService {
   public void setReview(SetReviewRequestDto reviewDto, String studentId) {
     Card card = cardRepository.findById(reviewDto.cardId()).orElseThrow(() -> new NotFoundException("Carta não encontrada"));
     Student student = card.getDeck().getStudent();
+    
     if(!student.getId().equals(studentId)) {
       throw new NotFoundException("Carta não encontrada");
     }

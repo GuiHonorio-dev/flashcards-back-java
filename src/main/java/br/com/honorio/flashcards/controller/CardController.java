@@ -46,6 +46,11 @@ public class CardController {
     return cardService.getDueCards(student.getId());
   }
 
+  @GetMapping("/most-wrong")
+  public List<GetCardResponseDto> findMostWrongCards(@AuthenticationPrincipal Student student) {
+    return cardService.getMostWrongCards(student.getId());
+  }
+
   @DeleteMapping("/{cardId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteCard(@AuthenticationPrincipal Student student, @PathVariable String cardId) {

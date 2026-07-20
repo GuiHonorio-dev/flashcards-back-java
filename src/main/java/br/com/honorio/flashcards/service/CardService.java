@@ -13,15 +13,19 @@ import br.com.honorio.flashcards.exception.NotFoundException;
 import br.com.honorio.flashcards.model.Card;
 import br.com.honorio.flashcards.model.Deck;
 import br.com.honorio.flashcards.repository.ICardRepository;
+import br.com.honorio.flashcards.repository.ICardReviewRepository;
 import br.com.honorio.flashcards.repository.IDeckRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class CardService {
-  
+
+  private static final int MIN_DIFFICULTY_WRONG = 4;
+
   private final IDeckRepository deckRepository;
   private final ICardRepository cardRepository;
+  private final ICardReviewRepository cardReviewRepository;
 
   public CreateCardResponseDto create(CreateCardRequestDto cardDto, String studentId) {
     Deck deck = deckRepository.findByIdAndStudentId(cardDto.deckId(), studentId).orElseThrow(() -> new NotFoundException("Deck não encontrado"));
@@ -56,6 +60,13 @@ public class CardService {
 
   public List<GetCardResponseDto> getDueCards(String studentId) {
     return cardRepository.findDueCards(studentId, Instant.now())
+    .stream()
+    .map(card -> new GetCardResponseDto(card.getId(), card.getQuestion(), card.getAnswer(), card.getCreatedAt()))
+    .toList();
+  }
+
+  public List<GetCardResponseDto> getMostWrongCards(String studentId) {
+    return cardReviewRepository.findMostWrongCards(studentId, MIN_DIFFICULTY_WRONG)
     .stream()
     .map(card -> new GetCardResponseDto(card.getId(), card.getQuestion(), card.getAnswer(), card.getCreatedAt()))
     .toList();
